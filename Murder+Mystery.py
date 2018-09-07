@@ -104,13 +104,19 @@ def frequency_comparison(table1, table2):
     # Return the frequency comparison
     return mutual_appearances / appearances
 
-def percent_difference(sample1, sample2):
+def percent_difference(sample1, sample2): 
+    v1 = sample1.average_sentence_length
+    v2 = sample2.average_sentence_length
+
     # Calculate and return: (v1 - v2) / ((v1 + v2)/2)
-    return abs(sample1.average_sentence_length - sample2.average_sentence_length) / ((sample1.average_sentence_length + sample2.average_sentence_length)/2)
+    return abs(v1 - v2) / ((v1 + v2)/2)
 
 def percent_difference_characters(sample1, sample2):
+    v1 = sample1.average_sentence_length_by_characters
+    v2 = sample2.average_sentence_length_by_characters
+
     # Calculate and return: (v1 - v2) / ((v1 + v2)/2)
-    return abs(sample1.average_sentence_length_by_characters - sample2.average_sentence_length_by_characters) / ((sample1.average_sentence_length_by_characters + sample2.average_sentence_length_by_characters)/2)
+    return abs(v1 - v2) / ((v1 + v2)/2)
 
 def find_text_similarity(sample1, sample2):
     sentence_length_difference = percent_difference(sample1, sample2)
