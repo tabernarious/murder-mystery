@@ -45,19 +45,7 @@ def build_frequency_table(corpus):
     
     # Check each element of corpus for existence in frequency_table. Add or increment the element's value.
     for element in corpus:
-        if element in frequency_table.keys():
-            frequency_table[element] += 1
-        else:
-            frequency_table[element] = 1
-    
-    return frequency_table
-
-def build_frequency_table(corpus):
-    frequency_table = {}
-    
-    # Check each element of corpus for existence in frequency_table. Add or increment the element's value.
-    for element in corpus:
-        if element in frequency_table.keys():
+        if frequency_table.get(element):
             frequency_table[element] += 1
         else:
             frequency_table[element] = 1
@@ -87,18 +75,14 @@ def frequency_comparison(table1, table2):
     # Then iterate through table2's keys, check if the key exists in table1.
     #   Ignore mutual keys (these have already been accounted for)
     #   For non-mutual keys, add the table2 value to appearances.
-    for ngram in table1.keys():
-        if ngram in table2.keys():
-            if table1[ngram] < table2[ngram]:
-                mutual_appearances += table1[ngram]
-                appearances += table2[ngram]
-            else:
-                mutual_appearances += table2[ngram]
-                appearances += table1[ngram]
+    for ngram in table1:
+        if table2.get(ngram):
+            mutual_appearances += min(table1[ngram], table2[ngram])
+            appearances += max(table1[ngram], table2[ngram])
         else:
             appearances += table1[ngram]
     for ngram in table2.keys():
-        if ngram not in table1.keys():
+        if not table1.get(ngram):
             appearances += table2[ngram]
 
     # Return the frequency comparison
