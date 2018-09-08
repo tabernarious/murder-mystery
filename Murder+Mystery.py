@@ -76,14 +76,20 @@ def frequency_comparison(table1, table2):
     #   Ignore mutual keys (these have already been accounted for)
     #   For non-mutual keys, add the table2 value to appearances.
     for ngram in table1:
-        if table2.get(ngram):
-            mutual_appearances += min(table1[ngram], table2[ngram])
-            appearances += max(table1[ngram], table2[ngram])
+        v1 = table1.get(ngram)
+        v2 = table2.get(ngram)
+
+        if v2:
+            mutual_appearances += min(v1, v2)
+            appearances += max(v1, v2)
         else:
-            appearances += table1[ngram]
+            appearances += v1
     for ngram in table2.keys():
-        if not table1.get(ngram):
-            appearances += table2[ngram]
+        v1 = table1.get(ngram)
+        v2 = table2.get(ngram)
+
+        if not v1:
+            appearances += v2
 
     # Return the frequency comparison
     return mutual_appearances / appearances
